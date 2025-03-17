@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+
 import 'package:uber/colors/colors.dart';
 import 'package:uber/widgets/Intro_login_button.dart';
 import 'package:uber/widgets/divider_widget.dart';
@@ -25,7 +26,7 @@ class IntroPage extends StatelessWidget {
             children: [
               SizedBox(
                 width: MediaQuery.of(context).size.width / 2,
-                height: 100,
+                height: MediaQuery.of(context).size.height * 0.132,
                 child: Image.asset(
                   "assets/logoDark.png",
                   width: double.minPositive,
@@ -39,9 +40,12 @@ class IntroPage extends StatelessWidget {
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
-                  SocialLoginButton(image: 'assets/facebook.png', onPress: () {  },),
-                  SocialLoginButton(image: 'assets/google.png', onPress: () {  },),
-                  SocialLoginButton(image: 'assets/apple.png', onPress: () {  },),
+                  SocialLoginButton(
+                    image: 'assets/facebook.png',
+                    onPress: () {},
+                  ),
+                  SocialLoginButton(image: 'assets/google.png', onPress: () {}),
+                  SocialLoginButton(image: 'assets/apple.png', onPress: () {}),
                 ],
               ),
             ],
