@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:uber/pages/intro_page.dart';
-import 'package:uber/pages/login_page.dart';
 
 void main() {
   runApp(const MyApp());
@@ -15,7 +14,7 @@ class MyApp extends StatelessWidget {
       debugShowCheckedModeBanner: false,
       title: 'Uber',
 
-      home: const LoginPage(),
+      home: const IntroPage(),
     );
   }
 }

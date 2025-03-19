@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
 import 'package:uber/colors/colors.dart';
-import 'package:uber/widgets/Intro_login_button.dart';
+import 'package:uber/widgets/intro_login_button.dart';
 import 'package:uber/widgets/divider_widget.dart';
 import 'package:uber/widgets/intro_create_account_button.dart';
 import 'package:uber/widgets/social_login_button.dart';
