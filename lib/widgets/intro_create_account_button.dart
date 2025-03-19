@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:uber/colors/colors.dart';
+import 'package:uber/pages/create_an_account_page.dart';
 
 class IntroCreateAccountButton extends StatelessWidget {
   const IntroCreateAccountButton({super.key});
@@ -12,7 +13,16 @@ class IntroCreateAccountButton extends StatelessWidget {
         width: double.infinity,
         height: MediaQuery.of(context).size.height * 0.065,
         child: ElevatedButton(
-          onPressed: () {},
+          onPressed: () {
+            Navigator.push(
+              context,
+              MaterialPageRoute(
+                builder: (context) {
+                  return const CreateAnAccountPage();
+                },
+              ),
+            );
+          },
           style: ElevatedButton.styleFrom(
             backgroundColor: gray,
             shape: RoundedRectangleBorder(

@@ -18,9 +18,9 @@ class InputTextButton extends StatelessWidget {
         cursorColor: black,
         decoration: InputDecoration(
           filled: true,
-          fillColor: gray,
+          fillColor: gray0,
           label: Text(labelText),
-          labelStyle: TextStyle(color: gray1),
+          labelStyle: TextStyle(color: gray2),
           floatingLabelBehavior: FloatingLabelBehavior.never,
           hintText: hintText,
           hintStyle: TextStyle(color: gray1),

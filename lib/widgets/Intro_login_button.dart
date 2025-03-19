@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:uber/colors/colors.dart';
+import 'package:uber/pages/login_page.dart';
 
 class IntroLoginButton extends StatelessWidget {
   const IntroLoginButton({super.key});
@@ -12,7 +13,16 @@ class IntroLoginButton extends StatelessWidget {
         width: double.infinity,
         height: MediaQuery.of(context).size.height * 0.065,
         child: ElevatedButton(
-          onPressed: () {},
+          onPressed: () {
+            Navigator.push(
+              context,
+              MaterialPageRoute(
+                builder: (context) {
+                  return const LoginPage();
+                },
+              ),
+            );
+          },
           style: ElevatedButton.styleFrom(
             backgroundColor: black,
             shape: RoundedRectangleBorder(
