@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:uber/colors/colors.dart';
-import 'package:uber/pages/home_page.dart';
 
 class CreateAnAccountButton extends StatelessWidget {
-  const CreateAnAccountButton({super.key});
+  final Function()? onTap;
+  const CreateAnAccountButton({super.key, required this.onTap});
 
   @override
   Widget build(BuildContext context) {
@@ -16,16 +16,7 @@ class CreateAnAccountButton extends StatelessWidget {
         width: double.infinity,
         height: MediaQuery.of(context).size.height * 0.065,
         child: ElevatedButton(
-          onPressed: () {
-            Navigator.push(
-              context,
-              MaterialPageRoute(
-                builder: (context) {
-                  return const HomePage();
-                },
-              ),
-            );
-          },
+          onPressed: onTap,
           style: ElevatedButton.styleFrom(
             backgroundColor: black,
             shape: RoundedRectangleBorder(
