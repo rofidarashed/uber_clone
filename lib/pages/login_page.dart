@@ -1,7 +1,7 @@
 import 'package:email_validator/email_validator.dart';
 import 'package:flutter/material.dart';
 import 'package:uber/colors/colors.dart';
-import 'package:uber/pages/home_page.dart';
+import 'package:uber/pages/main_page.dart';
 import 'package:uber/widgets/input_text_button.dart';
 import 'package:uber/widgets/login_button.dart';
 
@@ -69,7 +69,8 @@ class _LoginPageState extends State<LoginPage> {
                               return 'Invalid email address';
                             }
                             return null;
-                          }, obscureText: false,
+                          },
+                          obscureText: false,
                         ),
                         InputTextButton(
                           labelText: 'Password',
@@ -81,7 +82,8 @@ class _LoginPageState extends State<LoginPage> {
                               return 'Password must be 5 characters or more';
                             }
                             return null;
-                          }, obscureText: true,
+                          },
+                          obscureText: true,
                         ),
                         TextButton(
                           onPressed: () {},
@@ -104,7 +106,7 @@ class _LoginPageState extends State<LoginPage> {
                           context,
                           MaterialPageRoute(
                             builder: (context) {
-                              return const HomePage();
+                              return const MainPage();
                             },
                           ),
                         );

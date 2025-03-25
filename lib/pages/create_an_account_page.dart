@@ -1,7 +1,7 @@
 import 'package:email_validator/email_validator.dart';
 import 'package:flutter/material.dart';
 import 'package:uber/colors/colors.dart';
-import 'package:uber/pages/home_page.dart';
+import 'package:uber/pages/main_page.dart';
 import 'package:uber/widgets/create_an_account_button.dart';
 import 'package:uber/widgets/input_text_button.dart';
 
@@ -43,7 +43,7 @@ class CreateAnAccountPage extends StatelessWidget {
                           context,
                           MaterialPageRoute(
                             builder: (context) {
-                              return const HomePage();
+                              return const MainPage();
                             },
                           ),
                         );
