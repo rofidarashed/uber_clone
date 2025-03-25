@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:uber/globals.dart';
 import 'package:uber/pages/intro_page.dart';
 
 void main() {
@@ -11,6 +12,8 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
+      navigatorKey: navigatorKey,
+      scaffoldMessengerKey: scaffoldMessengerKey,
       debugShowCheckedModeBanner: false,
       title: 'Uber',
 
