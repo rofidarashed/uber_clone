@@ -22,7 +22,7 @@ class _MainPageState extends State<MainPage> {
       bottomNavigationBar: Theme(
         data: Theme.of(context).copyWith(
           splashFactory: NoSplash.splashFactory,
-          highlightColor: Colors.transparent, 
+          highlightColor: Colors.transparent,
         ),
         child: BottomNavigationBar(
           currentIndex: _currentIndex,
