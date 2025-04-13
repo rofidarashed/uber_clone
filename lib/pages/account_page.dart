@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:uber/colors/colors.dart';
+import 'package:uber/pages/payment_method_page.dart';
 import 'package:uber/widgets/account_header.dart';
 import 'package:uber/widgets/size_extensions.dart';
 
@@ -30,7 +31,16 @@ class AccountPage extends StatelessWidget {
                   ),
                   SizedBox(height: 18.rh),
                   InkWell(
-                    onTap: () {},
+                    onTap: () {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) {
+                            return PaymentMethodPage();
+                          },
+                        ),
+                      );
+                    },
                     child: Text(
                       'Top-up balance',
                       style: TextStyle(color: black, fontSize: 16),
