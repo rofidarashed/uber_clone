@@ -101,13 +101,13 @@ flutter_native_splash:
   android: true
 
   color: "#000000"
-  image: "assets/logo.png"
+  image: "assets/Uber.png"
 
 
   android_12:
 
     color: "#000000"
-    image: "assets/logo.png"
+    image: "assets/Uber.png"
 
 flutter_launcher_icons:
   android: "launcher_icon"
