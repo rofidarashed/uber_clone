@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:uber/colors/colors.dart';
 
-class DividerWidget extends StatelessWidget {
-  const DividerWidget({super.key});
+class OrDividerWidget extends StatelessWidget {
+  const OrDividerWidget({super.key});
 
   @override
   Widget build(BuildContext context) {

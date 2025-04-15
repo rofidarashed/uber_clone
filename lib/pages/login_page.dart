@@ -1,9 +1,9 @@
 import 'package:email_validator/email_validator.dart';
 import 'package:flutter/material.dart';
 import 'package:uber/colors/colors.dart';
+import 'package:uber/elements/buttons/black_button.dart';
 import 'package:uber/pages/main_page.dart';
-import 'package:uber/widgets/input_text_button.dart';
-import 'package:uber/widgets/login_button.dart';
+import 'package:uber/elements/buttons/input_text_button.dart';
 
 class LoginPage extends StatefulWidget {
   final String? password;
@@ -99,19 +99,26 @@ class _LoginPageState extends State<LoginPage> {
               ),
               Column(
                 children: [
-                  LoginButton(
-                    onTap: () {
-                      if (_formKey.currentState?.validate() ?? false) {
-                        Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                            builder: (context) {
-                              return const MainPage();
-                            },
-                          ),
-                        );
-                      }
-                    },
+                  Padding(
+                    padding: EdgeInsets.symmetric(
+                      vertical: 8.0,
+                      horizontal: MediaQuery.of(context).size.width / 8,
+                    ),
+                    child: BlackButton(
+                      onPressed: () {
+                        if (_formKey.currentState?.validate() ?? false) {
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                              builder: (context) {
+                                return const MainPage();
+                              },
+                            ),
+                          );
+                        }
+                      },
+                      label: "Login",
+                    ),
                   ),
                 ],
               ),

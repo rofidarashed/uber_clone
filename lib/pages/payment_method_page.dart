@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:uber/colors/colors.dart';
-import 'package:uber/widgets/size_extensions.dart';
+import 'package:uber/elements/widgets/size_extensions.dart';
 
 class PaymentMethodPage extends StatelessWidget {
   const PaymentMethodPage({super.key});

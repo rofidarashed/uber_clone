@@ -1,10 +1,11 @@
 import 'package:flutter/material.dart';
 
 import 'package:uber/colors/colors.dart';
-import 'package:uber/widgets/intro_login_button.dart';
-import 'package:uber/widgets/divider_widget.dart';
-import 'package:uber/widgets/intro_create_account_button.dart';
-import 'package:uber/widgets/social_login_button.dart';
+import 'package:uber/elements/buttons/black_button.dart';
+import 'package:uber/elements/widgets/or_divider_widget.dart';
+import 'package:uber/elements/buttons/intro_create_account_button.dart';
+import 'package:uber/elements/buttons/social_login_button.dart';
+import 'package:uber/pages/login_page.dart';
 
 class IntroPage extends StatelessWidget {
   const IntroPage({super.key});
@@ -34,9 +35,24 @@ class IntroPage extends StatelessWidget {
               ),
               Text('Your next ride.', style: TextStyle(fontSize: 20)),
               Spacer(flex: 1),
-              IntroLoginButton(),
+              Padding(
+                padding: const EdgeInsets.only(bottom: 8.0),
+                child: BlackButton(
+                  onPressed: () {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) {
+                          return const LoginPage();
+                        },
+                      ),
+                    );
+                  },
+                  label: 'Login to your account',
+                ),
+              ),
               IntroCreateAccountButton(),
-              DividerWidget(),
+              OrDividerWidget(),
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [

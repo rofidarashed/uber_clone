@@ -1,9 +1,9 @@
 import 'package:email_validator/email_validator.dart';
 import 'package:flutter/material.dart';
 import 'package:uber/colors/colors.dart';
+import 'package:uber/elements/buttons/black_button.dart';
 import 'package:uber/pages/main_page.dart';
-import 'package:uber/widgets/create_an_account_button.dart';
-import 'package:uber/widgets/input_text_button.dart';
+import 'package:uber/elements/buttons/input_text_button.dart';
 
 class CreateAnAccountPage extends StatelessWidget {
   CreateAnAccountPage({super.key});
@@ -36,19 +36,26 @@ class CreateAnAccountPage extends StatelessWidget {
                     textAlign: TextAlign.center,
                     'By creating an account, you agree\nto our Terms of Service and Privacy Policy.',
                   ),
-                  CreateAnAccountButton(
-                    onTap: () {
-                      if (_formKey.currentState?.validate() ?? false) {
-                        Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                            builder: (context) {
-                              return const MainPage();
-                            },
-                          ),
-                        );
-                      }
-                    },
+                  Padding(
+                    padding: EdgeInsets.symmetric(
+                      vertical: 26,
+                      horizontal: MediaQuery.of(context).size.width / 8,
+                    ),
+                    child: BlackButton(
+                      onPressed: () {
+                        if (_formKey.currentState?.validate() ?? false) {
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                              builder: (context) {
+                                return const MainPage();
+                              },
+                            ),
+                          );
+                        }
+                      },
+                      label: "Create an account",
+                    ),
                   ),
                 ],
               ),

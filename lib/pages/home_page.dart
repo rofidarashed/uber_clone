@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:uber/colors/colors.dart';
-import 'package:uber/widgets/recent_rides.dart';
-import 'package:uber/widgets/size_extensions.dart';
+import 'package:uber/elements/widgets/recent_rides.dart';
+import 'package:uber/elements/widgets/size_extensions.dart';
 
 class HomePage extends StatelessWidget {
   const HomePage({super.key});
