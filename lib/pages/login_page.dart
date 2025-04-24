@@ -107,7 +107,7 @@ class _LoginPageState extends State<LoginPage> {
                     child: BlackButton(
                       onPressed: () {
                         if (_formKey.currentState?.validate() ?? false) {
-                          Navigator.push(
+                          Navigator.pushReplacement(
                             context,
                             MaterialPageRoute(
                               builder: (context) {
