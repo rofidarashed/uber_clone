@@ -1,4 +1,4 @@
-// import 'package:email_validator/email_validator.dart';
+import 'package:email_validator/email_validator.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:uber/colors/colors.dart';
@@ -11,8 +11,6 @@ class CreateAnAccountPage extends StatelessWidget {
   CreateAnAccountPage({super.key});
 
   final _formKey = GlobalKey<FormState>();
-
-  String? _authError;
 
   final TextEditingController _emailController = TextEditingController();
 
@@ -49,33 +47,39 @@ class CreateAnAccountPage extends StatelessWidget {
                     ),
                     child: BlackButton(
                       onPressed: () async {
-                        _authError = null;
-                        if (_formKey.currentState?.validate() ?? false) {
-                          try {
-                            // final credential =
-                            await FirebaseAuth.instance
-                                .createUserWithEmailAndPassword(
-                                  email: _emailController.text,
-                                  password: _passwordController.text,
-                                );
-                            Navigator.pushReplacement(
-                              context,
-                              MaterialPageRoute(
-                                builder: (context) => const MainPage(),
-                              ),
-                            );
-                          } on FirebaseAuthException catch (e) {
-                            _authError = e.code;
-                            _formKey.currentState?.validate();
-                          } catch (e) {
+                        try {
+                          // final credential =
+                          await FirebaseAuth.instance
+                              .createUserWithEmailAndPassword(
+                                email: _emailController.text,
+                                password: _passwordController.text,
+                              );
+                          Navigator.pushReplacement(
+                            context,
+                            MaterialPageRoute(
+                              builder: (context) => const MainPage(),
+                            ),
+                          );
+                        } on FirebaseAuthException catch (e) {
+                          if (e.code == 'weak-password') {
+                            print('The password provided is too weak.');
+                          } else if (e.code == 'email-already-in-use') {
                             ScaffoldMessenger.of(context).showSnackBar(
                               SnackBar(
                                 content: Text(
-                                  'An error occurred. Please try again.',
+                                  'The account already exists for that email.',
                                 ),
                               ),
                             );
                           }
+                        } catch (e) {
+                          ScaffoldMessenger.of(context).showSnackBar(
+                            SnackBar(
+                              content: Text(
+                                'An error occurred. Please try again.',
+                              ),
+                            ),
+                          );
                         }
                       },
                       label: "Create an account",
@@ -120,15 +124,12 @@ class CreateAnAccountPage extends StatelessWidget {
                   hintText: 'qwerty@gmail.com',
                   controller: _emailController,
                   validator: (String? email) {
-                    String? error;
                     if (email!.isEmpty == true) {
-                      error = 'Please enter your email';
-                    } else if (_authError == 'email-already-in-use') {
-                      error = 'This email is already registered';
-                    } else if (_authError == 'invalid-email') {
-                      error = 'Invalid email address';
+                      return 'Please enter your email';
+                    } else if (!EmailValidator.validate(email)) {
+                      return "Please enter a valid email";
                     }
-                    return error;
+                    return null;
                   },
                   obscureText: false,
                 ),
@@ -137,13 +138,12 @@ class CreateAnAccountPage extends StatelessWidget {
                   hintText: '******',
                   controller: _passwordController,
                   validator: (password) {
-                    String? error;
                     if (password!.isEmpty == true) {
-                      error = 'Please enter your password';
-                    } else if (_authError == 'weak-password') {
-                      error = 'Password is weak ,use at least 6 characters';
+                      return 'Please enter your password';
+                    } else if (password.length < 6) {
+                      return 'Password is weak ,use at least 6 characters';
                     }
-                    return error;
+                    return null;
                   },
                   obscureText: true,
                 ),
