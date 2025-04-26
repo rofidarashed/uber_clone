@@ -47,41 +47,42 @@ class CreateAnAccountPage extends StatelessWidget {
                     ),
                     child: BlackButton(
                       onPressed: () async {
-                        try {
-                          // final credential =
-                          await FirebaseAuth.instance
-                              .createUserWithEmailAndPassword(
-                                email: _emailController.text,
-                                password: _passwordController.text,
+                        if (_formKey.currentState?.validate() ?? false) {
+                          try {
+                            // final credential =
+                            await FirebaseAuth.instance
+                                .createUserWithEmailAndPassword(
+                                  email: _emailController.text,
+                                  password: _passwordController.text,
+                                );
+                            Navigator.pushReplacement(
+                              context,
+                              MaterialPageRoute(
+                                builder: (context) => const MainPage(),
+                              ),
+                            );
+                          } on FirebaseAuthException catch (e) {
+                            if (e.code == 'email-already-in-use') {
+                              ScaffoldMessenger.of(context).showSnackBar(
+                                SnackBar(
+                                  content: Text(
+                                    'The account already exists for that email.',
+                                  ),
+                                ),
                               );
-                          Navigator.pushReplacement(
-                            context,
-                            MaterialPageRoute(
-                              builder: (context) => const MainPage(),
-                            ),
-                          );
-                        } on FirebaseAuthException catch (e) {
-                          if (e.code == 'weak-password') {
-                            print('The password provided is too weak.');
-                          } else if (e.code == 'email-already-in-use') {
+                            }
+                          } catch (e) {
                             ScaffoldMessenger.of(context).showSnackBar(
                               SnackBar(
                                 content: Text(
-                                  'The account already exists for that email.',
+                                  'An error occurred. Please try again.',
                                 ),
                               ),
                             );
                           }
-                        } catch (e) {
-                          ScaffoldMessenger.of(context).showSnackBar(
-                            SnackBar(
-                              content: Text(
-                                'An error occurred. Please try again.',
-                              ),
-                            ),
-                          );
                         }
                       },
+
                       label: "Create an account",
                     ),
                   ),
