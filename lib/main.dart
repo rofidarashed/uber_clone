@@ -5,6 +5,7 @@ import 'package:uber/colors/colors.dart';
 import 'package:uber/firebase_options.dart';
 import 'package:uber/globals.dart';
 import 'package:uber/pages/intro_page.dart';
+import 'package:uber/pages/main_page.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -20,19 +21,16 @@ class MyApp extends StatefulWidget {
 }
 
 class _MyAppState extends State<MyApp> {
-
-@override
+  @override
   void initState() {
     super.initState();
-    FirebaseAuth.instance
-  .authStateChanges()
-  .listen((User? user) {
-    if (user == null) {
-      print('User is currently signed out!');
-    } else {
-      print('User is signed in!');
-    }
-  });
+    FirebaseAuth.instance.authStateChanges().listen((User? user) {
+      if (user == null) {
+        print('User is currently signed out!');
+      } else {
+        print('User is signed in!');
+      }
+    });
   }
 
   @override
@@ -50,7 +48,10 @@ class _MyAppState extends State<MyApp> {
       debugShowCheckedModeBanner: false,
       title: 'Uber',
 
-      home: const IntroPage(),
+      home:
+          FirebaseAuth.instance.currentUser == null
+              ? const IntroPage()
+              : MainPage(),
     );
   }
 }
