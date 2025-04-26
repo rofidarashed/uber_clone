@@ -1,5 +1,7 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:uber/colors/colors.dart';
+import 'package:uber/pages/intro_page.dart';
 import 'package:uber/pages/payment_method_page.dart';
 import 'package:uber/elements/widgets/account_header.dart';
 import 'package:uber/elements/widgets/size_extensions.dart';
@@ -59,6 +61,17 @@ class AccountPage extends StatelessWidget {
                   SizedBox(height: 18.rh),
 
                   InkWell(
+                    onTap: () async {
+                      await FirebaseAuth.instance.signOut();
+                      Navigator.of(context).pushAndRemoveUntil(
+                        MaterialPageRoute(
+                          builder: (context) {
+                            return const IntroPage();
+                          },
+                        ),
+                        (Route) => false,
+                      );
+                    },
                     child: Text(
                       "Log out",
                       style: TextStyle(color: Colors.red, fontSize: 16),
