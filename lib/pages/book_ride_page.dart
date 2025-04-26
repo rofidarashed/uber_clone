@@ -4,6 +4,7 @@ import 'package:uber/elements/buttons/black_button.dart';
 import 'package:uber/elements/widgets/car_info.dart';
 import 'package:uber/elements/widgets/driver_info.dart';
 import 'package:uber/elements/widgets/size_extensions.dart';
+import 'package:uber/pages/confirm_book.dart';
 
 class BookRidePage extends StatelessWidget {
   const BookRidePage({super.key});
@@ -41,7 +42,19 @@ class BookRidePage extends StatelessWidget {
               ),
               DriverInfo(),
               SizedBox(height: 200.rh),
-              BlackButton(onPressed: () {}, label: "Book"),
+              BlackButton(
+                onPressed: () {
+                  Navigator.pushReplacement(
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) {
+                        return ConfirmBook();
+                      },
+                    ),
+                  );
+                },
+                label: "Book",
+              ),
             ],
           ),
         ),
