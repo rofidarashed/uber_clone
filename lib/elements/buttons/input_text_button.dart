@@ -2,6 +2,7 @@
 import 'package:flutter/material.dart';
 
 import 'package:uber/colors/colors.dart';
+import 'package:uber/elements/widgets/size_extensions.dart';
 
 class InputTextButton extends StatelessWidget {
   final String labelText;
@@ -21,7 +22,7 @@ class InputTextButton extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: const EdgeInsets.all(8.0),
+      padding: EdgeInsets.only(bottom: 12.rh),
       child: TextFormField(
         controller: controller,
         validator: validator,
