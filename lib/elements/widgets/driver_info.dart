@@ -15,13 +15,12 @@ class DriverInfo extends StatelessWidget {
             radius: 29,
             backgroundColor: white,
             child: Image.asset(
-              "assets/driver.png",
+              "assets/driver_default.png",
               height: 58.rh,
               width: 58.rw,
             ),
           ),
           Text("\tMohamed", style: TextStyle(fontSize: 24)),
-          
         ],
       ),
     );
