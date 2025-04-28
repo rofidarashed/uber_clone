@@ -4,7 +4,7 @@ import 'package:uber/elements/buttons/black_button.dart';
 import 'package:uber/elements/widgets/car_info.dart';
 import 'package:uber/elements/widgets/driver_info.dart';
 import 'package:uber/elements/widgets/size_extensions.dart';
-import 'package:uber/pages/confirm_book.dart';
+import 'package:uber/pages/confirm_book_page.dart';
 
 class BookRidePage extends StatelessWidget {
   const BookRidePage({super.key});
@@ -41,7 +41,7 @@ class BookRidePage extends StatelessWidget {
                 style: TextStyle(fontSize: 32, fontWeight: FontWeight.bold),
               ),
               DriverInfo(),
-              SizedBox(height: 200.rh),
+              SizedBox(height: 140.rh),
               BlackButton(
                 onPressed: () {
                   Navigator.pushReplacement(
