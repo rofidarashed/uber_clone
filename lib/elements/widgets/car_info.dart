@@ -16,7 +16,7 @@ class CarInfo extends StatelessWidget {
             top: 44.rh,
             bottom: 28.rh,
           ),
-          child: Image.asset("assets/bookCar.png"),
+          child: Image.asset("assets/car1.png"),
         ),
         Text(" Red Hyundai Matrix 2020", style: TextStyle(fontSize: 24)),
         Text(" License Plate: ABC123", style: TextStyle(fontSize: 20)),
