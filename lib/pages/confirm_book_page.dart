@@ -1,12 +1,20 @@
 import 'package:flutter/material.dart';
 import 'package:uber/colors/colors.dart';
 import 'package:uber/elements/widgets/size_extensions.dart';
+import 'package:uber/pages/payment_page.dart';
 
 class ConfirmBook extends StatelessWidget {
   const ConfirmBook({super.key});
 
   @override
   Widget build(BuildContext context) {
+    Future.delayed(Duration(seconds: 2), () {
+      Navigator.pushReplacement(
+        context,
+        MaterialPageRoute(builder: (context) => PaymentPage()),
+      );
+    });
+
     return Scaffold(
       backgroundColor: white,
       body: Center(
