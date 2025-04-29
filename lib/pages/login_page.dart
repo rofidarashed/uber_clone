@@ -121,10 +121,29 @@ class _LoginPageState extends State<LoginPage> {
                   onPressed: () async {
                     if (_formKey.currentState?.validate() ?? false) {
                       try {
-                        await FirebaseAuth.instance.signInWithEmailAndPassword(
-                          email: _emailController.text,
-                          password: _passwordController.text,
-                        );
+                        final credential = await FirebaseAuth.instance
+                            .signInWithEmailAndPassword(
+                              email: _emailController.text,
+                              password: _passwordController.text,
+                            );
+                        if (credential.user!.emailVerified) {
+                          Navigator.pushReplacement(
+                            context,
+                            MaterialPageRoute(
+                              builder: (context) {
+                                return const MainPage();
+                              },
+                            ),
+                          );
+                        } else {
+                          ScaffoldMessenger.of(context).showSnackBar(
+                            SnackBar(
+                              content: Text('Please verify your email first'),
+                            ),
+                          );
+                          FirebaseAuth.instance.currentUser!
+                              .sendEmailVerification();
+                        }
                       } on FirebaseAuthException catch (e) {
                         if (e.code == 'invalid-credential') {
                           ScaffoldMessenger.of(context).showSnackBar(
@@ -133,14 +152,6 @@ class _LoginPageState extends State<LoginPage> {
                           return;
                         }
                       }
-                      Navigator.pushReplacement(
-                        context,
-                        MaterialPageRoute(
-                          builder: (context) {
-                            return const MainPage();
-                          },
-                        ),
-                      );
                     }
                   },
                   label: "Login",

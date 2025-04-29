@@ -3,6 +3,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:uber/colors/colors.dart';
 import 'package:uber/elements/buttons/black_button.dart';
+import 'package:uber/pages/login_page.dart';
 import 'package:uber/pages/main_page.dart';
 import 'package:uber/elements/buttons/input_text_button.dart';
 
@@ -55,19 +56,37 @@ class CreateAnAccountPage extends StatelessWidget {
                                   email: _emailController.text,
                                   password: _passwordController.text,
                                 );
-                            Navigator.pushReplacement(
-                              context,
-                              MaterialPageRoute(
-                                builder: (context) => const MainPage(),
-                              ),
-                            );
+                            FirebaseAuth.instance.currentUser!
+                                .sendEmailVerification();
+                            FirebaseAuth.instance.currentUser!.emailVerified
+                                ? Navigator.pushReplacement(
+                                  context,
+                                  MaterialPageRoute(
+                                    builder: (context) => const MainPage(),
+                                  ),
+                                )
+                                : ScaffoldMessenger.of(context).showSnackBar(
+                                  SnackBar(
+                                    content: Text(
+                                      'Please check your email to verify your account. ',
+                                    ),
+                                  ),
+                                );
                           } on FirebaseAuthException catch (e) {
                             if (e.code == 'email-already-in-use') {
                               ScaffoldMessenger.of(context).showSnackBar(
                                 SnackBar(
                                   content: Text(
-                                    'The account already exists for that email.',
+                                    'An account already exists for that email.\nNow you can login easily :)',
                                   ),
+                                ),
+                              );
+                              Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                  builder: (context) {
+                                    return LoginPage();
+                                  },
                                 ),
                               );
                             }
