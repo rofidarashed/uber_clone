@@ -12,7 +12,20 @@
           "package_name": "com.example.uber"
         }
       },
-      "oauth_client": [],
+      "oauth_client": [
+        {
+          "client_id": "981196572245-4pj2o9mhe4q788506i7c0ht3rv0fi2a5.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.uber",
+            "certificate_hash": "debd911c7dac4ccf7645f458d00ed24aa8da8ace"
+          }
+        },
+        {
+          "client_id": "981196572245-9g541i936rm3fk6scpujshcqn93ek80d.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
       "api_key": [
         {
           "current_key": "AIzaSyA8u9teekDHJzU6d6tXzMidAmTH9vm5zRc"
@@ -20,7 +33,19 @@
       ],
       "services": {
         "appinvite_service": {
-          "other_platform_oauth_client": []
+          "other_platform_oauth_client": [
+            {
+              "client_id": "981196572245-9g541i936rm3fk6scpujshcqn93ek80d.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "981196572245-ml496n8moaphdlvknhvtcvf5fdguudga.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.example.uber"
+              }
+            }
+          ]
         }
       }
     }

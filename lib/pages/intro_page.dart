@@ -1,11 +1,14 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-
+import 'package:google_sign_in/google_sign_in.dart';
 import 'package:uber/colors/colors.dart';
 import 'package:uber/elements/buttons/black_button.dart';
+import 'package:uber/elements/services/google_auth_service.dart';
 import 'package:uber/elements/widgets/or_divider_widget.dart';
 import 'package:uber/elements/buttons/intro_create_account_button.dart';
 import 'package:uber/elements/buttons/social_login_button.dart';
 import 'package:uber/pages/login_page.dart';
+import 'package:uber/pages/main_page.dart';
 
 class IntroPage extends StatelessWidget {
   const IntroPage({super.key});
@@ -58,9 +61,27 @@ class IntroPage extends StatelessWidget {
                 children: [
                   SocialLoginButton(
                     image: 'assets/facebook.png',
-                    onPress: () {},
+                    onPress: () async {
+                      await GoogleSignIn().signOut();
+                    },
                   ),
-                  SocialLoginButton(image: 'assets/google.png', onPress: () {}),
+                  SocialLoginButton(
+                    image: 'assets/google.png',
+                    onPress: () async {
+                      UserCredential? user =
+                          await GoogleAuthService.signInWithGoogle();
+                      if (user != null) {
+                        Navigator.pushReplacement(
+                          context,
+                          MaterialPageRoute(
+                            builder: (context) {
+                              return MainPage();
+                            },
+                          ),
+                        );
+                      }
+                    },
+                  ),
                   SocialLoginButton(image: 'assets/apple.png', onPress: () {}),
                 ],
               ),

@@ -1,5 +1,6 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:google_sign_in/google_sign_in.dart';
 import 'package:uber/colors/colors.dart';
 import 'package:uber/pages/intro_page.dart';
 import 'package:uber/pages/payment_method_page.dart';
@@ -63,6 +64,7 @@ class AccountPage extends StatelessWidget {
                   InkWell(
                     onTap: () async {
                       await FirebaseAuth.instance.signOut();
+                      await GoogleSignIn().signOut();
                       Navigator.of(context).pushAndRemoveUntil(
                         MaterialPageRoute(
                           builder: (context) {
