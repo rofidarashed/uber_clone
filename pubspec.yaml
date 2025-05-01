@@ -39,12 +39,15 @@ dependencies:
   keyboard_detection: ^0.8.0
   firebase_core: ^3.13.0
   flutter_launcher_icons: ^0.14.3
-  cloud_firestore: ^5.6.6
+  cloud_firestore: ^5.6.7
   firebase_storage: ^12.4.5
   firebase_messaging: ^15.2.5
-  firebase_auth: ^5.5.2
+  firebase_auth: ^5.5.3
   google_sign_in: ^6.3.0
+  flutter_facebook_auth: '^7.1.2'
   sign_in_with_apple: ^7.0.1
+  crypto: ^3.0.6
+
 
 dev_dependencies:
   flutter_test:
