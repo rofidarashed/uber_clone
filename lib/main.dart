@@ -25,7 +25,7 @@ class _MyAppState extends State<MyApp> {
   void initState() {
     super.initState();
     FirebaseAuth.instance.authStateChanges().listen((User? user) {
-      if (user != null&& user.emailVerified) {
+      if (user != null && user.emailVerified) {
         print('User is signed in!');
       } else {
         print('User is currently signed out!');
@@ -49,7 +49,8 @@ class _MyAppState extends State<MyApp> {
       title: 'Uber',
 
       home:
-         (FirebaseAuth.instance.currentUser != null&& FirebaseAuth.instance.currentUser!.emailVerified) 
+          (FirebaseAuth.instance.currentUser != null &&
+                  FirebaseAuth.instance.currentUser!.emailVerified)
               ? MainPage()
               : const IntroPage(),
     );

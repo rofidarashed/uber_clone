@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:uber/colors/colors.dart';
+import 'package:uber/elements/widgets/size_extensions.dart';
 
 class SocialLoginButton extends StatelessWidget {
   final String image;
@@ -11,8 +12,8 @@ class SocialLoginButton extends StatelessWidget {
     return GestureDetector(
       onTap: onPress ,
       child: Container(
-        width: MediaQuery.of(context).size.width / 5,
-        height: MediaQuery.of(context).size.height * 0.07,
+        width: 145.rw,
+        height: 55.rh,
         decoration: BoxDecoration(
           border: Border.all(color: gray, width: 1.2),
           borderRadius: BorderRadius.circular(5),
@@ -22,8 +23,8 @@ class SocialLoginButton extends StatelessWidget {
             padding: const EdgeInsets.all(8.0),
             child: Image.asset(
               image,
-              width: MediaQuery.of(context).size.width * 0.07,
-              height: MediaQuery.of(context).size.height * 0.04,
+              width: 35,
+              height: 35,
               fit: BoxFit.contain,
             ),
           ),
