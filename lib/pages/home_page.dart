@@ -2,9 +2,13 @@ import 'package:flutter/material.dart';
 import 'package:uber/colors/colors.dart';
 import 'package:uber/elements/widgets/recent_rides.dart';
 import 'package:uber/elements/widgets/size_extensions.dart';
+import 'package:uber/pages/account_page.dart';
 
 class HomePage extends StatelessWidget {
-  const HomePage({super.key});
+  final List<String> salary = ['90','95','100','110','125','150','160','175','190','200'];
+  final List<String> date = ['29, March','25, March','23, March','21, March','20, March','20, March','16, March','15, March','13, March','10, March'];
+
+   HomePage({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -24,7 +28,23 @@ class HomePage extends StatelessWidget {
                     "Welcome Back,\nAfaf",
                     style: TextStyle(fontWeight: FontWeight.bold, fontSize: 32),
                   ),
-                  CircleAvatar(child: Image.asset("assets/profile.png")),
+                  IconButton(
+                    onPressed: () {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) {
+                            return AccountPage();
+                          },
+                        ),
+                      );
+                    },
+                    icon: Image.asset(
+                      "assets/profile.png",
+                      fit: BoxFit.cover,
+                      height: 40.rh,
+                    ),
+                  ),
                 ],
               ),
             ),
@@ -38,7 +58,7 @@ class HomePage extends StatelessWidget {
                 padding: EdgeInsets.all(0),
                 itemCount: 10,
                 itemBuilder: (BuildContext context, int index) {
-                  return RecentRides();
+                  return RecentRides(salary: salary[index], date: date[index],);
                 },
               ),
             ),

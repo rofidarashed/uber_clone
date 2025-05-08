@@ -3,7 +3,9 @@ import 'package:uber/colors/colors.dart';
 import 'package:uber/elements/widgets/size_extensions.dart';
 
 class RecentRides extends StatelessWidget {
-  const RecentRides({super.key});
+  final String salary;
+  final String date;
+  const RecentRides({super.key, required this.salary, required this.date});
 
   @override
   Widget build(BuildContext context) {
@@ -38,7 +40,7 @@ class RecentRides extends StatelessWidget {
                     style: TextStyle(fontWeight: FontWeight.w500, fontSize: 15),
                   ),
                   Text(
-                    "13, March",
+                    date,
                     style: TextStyle(color: gray2, fontSize: 10),
                   ),
                 ],
@@ -50,7 +52,7 @@ class RecentRides extends StatelessWidget {
             mainAxisAlignment: MainAxisAlignment.center,
             mainAxisSize: MainAxisSize.min,
             children: [
-              Text("200", style: TextStyle(color: green, fontSize: 16)),
+              Text(salary, style: TextStyle(color: green, fontSize: 16)),
               Transform.translate(
                 offset: Offset(0, -4), // ✅ Moves text up
                 child: Text(
