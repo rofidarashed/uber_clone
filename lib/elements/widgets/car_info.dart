@@ -1,8 +1,12 @@
+import 'dart:math';
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:uber/elements/widgets/size_extensions.dart';
 
 class CarInfo extends StatelessWidget {
-  const CarInfo({super.key});
+  final DocumentSnapshot driversCar;
+  final Random random = Random();
+  CarInfo({super.key, required this.driversCar});
 
   @override
   Widget build(BuildContext context) {
@@ -18,8 +22,11 @@ class CarInfo extends StatelessWidget {
           ),
           child: Image.asset("assets/car1.png"),
         ),
-        Text(" Red Hyundai Matrix 2020", style: TextStyle(fontSize: 24)),
-        Text(" License Plate: ABC123", style: TextStyle(fontSize: 20)),
+        Text(driversCar['Car_model'], style: TextStyle(fontSize: 24)),
+        Text(
+          "License Plate: ${driversCar['License_plate']}",
+          style: TextStyle(fontSize: 20),
+        ),
       ],
     );
   }

@@ -1,3 +1,4 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:uber/colors/colors.dart';
 import 'package:uber/elements/buttons/black_button.dart';
@@ -7,7 +8,8 @@ import 'package:uber/elements/widgets/size_extensions.dart';
 import 'package:uber/pages/confirm_book_page.dart';
 
 class BookRidePage extends StatelessWidget {
-  const BookRidePage({super.key});
+  final DocumentSnapshot drivers;
+  const BookRidePage({super.key, required this.drivers});
 
   @override
   Widget build(BuildContext context) {
@@ -34,13 +36,13 @@ class BookRidePage extends StatelessWidget {
                   ),
                 ],
               ),
-              CarInfo(),
+              CarInfo(driversCar: drivers,),
               SizedBox(height: 34),
               Text(
                 "Driver",
                 style: TextStyle(fontSize: 32, fontWeight: FontWeight.bold),
               ),
-              DriverInfo(),
+              DriverInfo(drivers: drivers),
               SizedBox(height: 140.rh),
               BlackButton(
                 onPressed: () {
@@ -48,7 +50,7 @@ class BookRidePage extends StatelessWidget {
                     context,
                     MaterialPageRoute(
                       builder: (context) {
-                        return ConfirmBook();
+                        return ConfirmBook(drivers: drivers,);
                       },
                     ),
                   );

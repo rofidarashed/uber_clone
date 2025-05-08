@@ -1,11 +1,13 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:uber/colors/colors.dart';
 import 'package:uber/elements/widgets/size_extensions.dart';
 import 'package:uber/pages/book_ride_page.dart';
 
 class AvailableRides extends StatelessWidget {
-  final String driverName = "Mohamed";
-  const AvailableRides({super.key});
+  final DocumentSnapshot driversname;
+  final List<String> salary = ['90','95','100','110','125','150','160','175','190','200'];
+   AvailableRides({super.key, required this.driversname});
 
   @override
   Widget build(BuildContext context) {
@@ -28,7 +30,7 @@ class AvailableRides extends StatelessWidget {
             context,
             MaterialPageRoute(
               builder: (context) {
-                return BookRidePage();
+                return BookRidePage(drivers: driversname);
               },
             ),
           );
@@ -55,7 +57,7 @@ class AvailableRides extends StatelessWidget {
                     ),
                     Text(
                       // ignore: unnecessary_string_interpolations
-                      "$driverName",
+                      driversname['Name'],
                       style: TextStyle(color: gray2, fontSize: 10),
                     ),
                   ],

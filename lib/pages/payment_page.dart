@@ -1,3 +1,4 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:uber/colors/colors.dart';
 import 'package:uber/elements/buttons/black_button.dart';
@@ -6,7 +7,8 @@ import 'package:uber/elements/widgets/size_extensions.dart';
 import 'package:uber/pages/ride_page.dart';
 
 class PaymentPage extends StatelessWidget {
-  const PaymentPage({super.key});
+  final DocumentSnapshot drivers;
+  const PaymentPage({super.key, required this.drivers});
 
   @override
   Widget build(BuildContext context) {
@@ -18,7 +20,7 @@ class PaymentPage extends StatelessWidget {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              CarInfo(),
+              CarInfo(driversCar: drivers),
               Text('\nCharge\n', style: TextStyle(color: gray4, fontSize: 18)),
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
