@@ -28,7 +28,7 @@ class ConfirmBook extends StatelessWidget {
             SizedBox(height: 48.rh),
             Text("Thank you", style: TextStyle(color: gray4, fontSize: 20)),
             Text(
-              "Your booking has been confirmed and \nsent to \nMohamed",
+              "Your booking has been confirmed and \nsent to \n${drivers['Name']}",
               textAlign: TextAlign.center,
               style: TextStyle(color: gray4),
             ),
