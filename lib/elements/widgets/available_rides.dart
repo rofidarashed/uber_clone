@@ -5,12 +5,11 @@ import 'package:uber/elements/widgets/size_extensions.dart';
 import 'package:uber/pages/book_ride_page.dart';
 
 class AvailableRides extends StatelessWidget {
-  final DocumentSnapshot driversname;
-  final List<String> salary = ['90','95','100','110','125','150','160','175','190','200'];
-   AvailableRides({super.key, required this.driversname});
-
+  final DocumentSnapshot drivers;
+  const AvailableRides({super.key, required this.drivers});
   @override
   Widget build(BuildContext context) {
+    Map<String, dynamic> data = drivers.data() as Map<String, dynamic>;
     return Container(
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(5),
@@ -30,7 +29,7 @@ class AvailableRides extends StatelessWidget {
             context,
             MaterialPageRoute(
               builder: (context) {
-                return BookRidePage(drivers: driversname);
+                return BookRidePage(drivers: drivers);
               },
             ),
           );
@@ -56,8 +55,7 @@ class AvailableRides extends StatelessWidget {
                       ),
                     ),
                     Text(
-                      // ignore: unnecessary_string_interpolations
-                      driversname['Name'],
+                      data['Name'] ?? drivers.data().toString(),
                       style: TextStyle(color: gray2, fontSize: 10),
                     ),
                   ],
@@ -69,7 +67,10 @@ class AvailableRides extends StatelessWidget {
               mainAxisAlignment: MainAxisAlignment.center,
               mainAxisSize: MainAxisSize.min,
               children: [
-                Text("200", style: TextStyle(color: green, fontSize: 16)),
+                Text(
+                  drivers['salary'],
+                  style: TextStyle(color: green, fontSize: 16),
+                ),
                 Transform.translate(
                   offset: Offset(0, -4), // ✅ Moves text up
                   child: Text(

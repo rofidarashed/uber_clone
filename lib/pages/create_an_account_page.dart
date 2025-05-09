@@ -7,7 +7,6 @@ import 'package:uber/pages/login_page.dart';
 import 'package:uber/pages/main_page.dart';
 import 'package:uber/elements/buttons/input_text_button.dart';
 
-// ignore: must_be_immutable
 class CreateAnAccountPage extends StatelessWidget {
   CreateAnAccountPage({super.key});
 

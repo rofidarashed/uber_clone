@@ -12,6 +12,9 @@ class PaymentPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final int uberFee = 10;
+    final int driverFee = int.tryParse(drivers['salary'] )??0;
+    final int total = uberFee + driverFee;
     return Scaffold(
       backgroundColor: white,
       body: SafeArea(
@@ -26,14 +29,14 @@ class PaymentPage extends StatelessWidget {
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
                   Text('Driver Fee'),
-                  Text('EGP 200', style: TextStyle(color: green)),
+                  Text("EGP ${driverFee.toString()}", style: TextStyle(color: green)),
                 ],
               ),
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
                   Text('Uber Fee'),
-                  Text('EGP 10', style: TextStyle(color: green)),
+                  Text('EGP ${uberFee.toString()}', style: TextStyle(color: green)),
                 ],
               ),
               Divider(),
@@ -45,7 +48,7 @@ class PaymentPage extends StatelessWidget {
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       Text(
-                        '210',
+                        total.toString(),
                         style: TextStyle(
                           color: green,
                           fontWeight: FontWeight.w400,
