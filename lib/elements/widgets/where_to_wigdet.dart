@@ -3,7 +3,9 @@ import 'package:uber/elements/buttons/input_text_button.dart';
 import 'package:uber/elements/widgets/size_extensions.dart';
 
 class WhereToWigdet extends StatelessWidget {
-  const WhereToWigdet({super.key});
+  final TextEditingController from;
+  final TextEditingController to;
+   WhereToWigdet({super.key, required this.from, required this.to});
 
   @override
   Widget build(BuildContext context) {
@@ -23,7 +25,9 @@ class WhereToWigdet extends StatelessWidget {
                   child: InputTextButton(
                     labelText: "From",
                     hintText: "From",
+                    controller: from,
                     obscureText: false,
+                    validator: (value) => value == null || value.isEmpty ? "Required" : null,
                   ),
                 ),
               ],
@@ -37,7 +41,9 @@ class WhereToWigdet extends StatelessWidget {
                   child: InputTextButton(
                     labelText: "To",
                     hintText: "To",
+                    controller: to,
                     obscureText: false,
+                    validator:(value) => value == null || value.isEmpty ? "Required" : null,
                   ),
                 ),
               ],
