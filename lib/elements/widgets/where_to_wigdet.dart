@@ -5,7 +5,7 @@ import 'package:uber/elements/widgets/size_extensions.dart';
 class WhereToWigdet extends StatelessWidget {
   final TextEditingController from;
   final TextEditingController to;
-   WhereToWigdet({super.key, required this.from, required this.to});
+  const WhereToWigdet({super.key, required this.from, required this.to});
 
   @override
   Widget build(BuildContext context) {

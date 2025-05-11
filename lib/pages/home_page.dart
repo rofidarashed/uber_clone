@@ -5,7 +5,14 @@ import 'package:uber/elements/widgets/recent_rides.dart';
 import 'package:uber/elements/widgets/size_extensions.dart';
 import 'package:uber/pages/profile_page.dart';
 
-class HomePage extends StatelessWidget {
+class HomePage extends StatefulWidget {
+  const HomePage({super.key});
+
+  @override
+  State<HomePage> createState() => _HomePageState();
+}
+
+class _HomePageState extends State<HomePage> {
   final List<String> salary = [
     '90',
     '95',
@@ -31,12 +38,11 @@ class HomePage extends StatelessWidget {
     '10, March',
   ];
 
-  HomePage({super.key});
-
   @override
   Widget build(BuildContext context) {
     final user = FirebaseAuth.instance.currentUser;
-    final displayName = FirebaseAuth.instance.currentUser?.displayName;
+    final displayName =
+        FirebaseAuth.instance.currentUser?.displayName?.split(" ").first;
 
     return Scaffold(
       backgroundColor: white,
@@ -55,8 +61,8 @@ class HomePage extends StatelessWidget {
                     style: TextStyle(fontWeight: FontWeight.bold, fontSize: 32),
                   ),
                   IconButton(
-                    onPressed: () {
-                      Navigator.push(
+                    onPressed: () async {
+                      await Navigator.push(
                         context,
                         MaterialPageRoute(
                           builder: (context) {
@@ -64,6 +70,10 @@ class HomePage extends StatelessWidget {
                           },
                         ),
                       );
+                      if (context.mounted) {
+                      setState(() {});
+                        
+                      }
                     },
                     icon:
                         user != null

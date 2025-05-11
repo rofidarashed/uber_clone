@@ -11,18 +11,6 @@ class PaymentMethodPage extends StatelessWidget {
       backgroundColor: white,
       appBar: AppBar(
         backgroundColor: white,
-        automaticallyImplyLeading: false,
-        actions: [
-          TextButton(
-            onPressed: () {
-              Navigator.pop(context);
-            },
-            child: Text(
-              "Do This Later",
-              style: TextStyle(color: Colors.blueAccent),
-            ),
-          ),
-        ],
       ),
       body: Padding(
         padding: EdgeInsets.symmetric(horizontal: 26.rw),
