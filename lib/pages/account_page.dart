@@ -6,6 +6,7 @@ import 'package:uber/pages/intro_page.dart';
 import 'package:uber/pages/payment_method_page.dart';
 import 'package:uber/elements/widgets/account_header.dart';
 import 'package:uber/elements/widgets/size_extensions.dart';
+import 'package:uber/pages/profile_page.dart';
 
 class AccountPage extends StatelessWidget {
   const AccountPage({super.key});
@@ -26,7 +27,16 @@ class AccountPage extends StatelessWidget {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   InkWell(
-                    onTap: () {},
+                    onTap: () {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) {
+                            return ProfilePage();
+                          },
+                        ),
+                      );
+                    },
                     child: Text(
                       'Profile',
                       style: TextStyle(color: black, fontSize: 16),

@@ -1,9 +1,9 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:uber/colors/colors.dart';
-import 'package:uber/elements/services/sp_service.dart';
 import 'package:uber/elements/widgets/recent_rides.dart';
 import 'package:uber/elements/widgets/size_extensions.dart';
-import 'package:uber/pages/account_page.dart';
+import 'package:uber/pages/profile_page.dart';
 
 class HomePage extends StatelessWidget {
   final List<String> salary = [
@@ -35,7 +35,9 @@ class HomePage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final displayName = SpService.i.prefs?.getString("displayName");
+    final user = FirebaseAuth.instance.currentUser;
+    final displayName = FirebaseAuth.instance.currentUser?.displayName;
+
     return Scaffold(
       backgroundColor: white,
       body: Padding(
@@ -58,16 +60,24 @@ class HomePage extends StatelessWidget {
                         context,
                         MaterialPageRoute(
                           builder: (context) {
-                            return AccountPage();
+                            return ProfilePage();
                           },
                         ),
                       );
                     },
-                    icon: Image.asset(
-                      "assets/profile.png",
-                      fit: BoxFit.cover,
-                      height: 40.rh,
-                    ),
+                    icon:
+                        user != null
+                            ? CircleAvatar(
+                              backgroundImage: NetworkImage(
+                                user.photoURL.toString(),
+                              ),
+                              radius: 25,
+                            )
+                            : Image.asset(
+                              "assets/profile.png",
+                              fit: BoxFit.cover,
+                              height: 40.rh,
+                            ),
                   ),
                 ],
               ),
