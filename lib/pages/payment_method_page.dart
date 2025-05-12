@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:uber/colors/colors.dart';
 import 'package:uber/elements/widgets/size_extensions.dart';
+import 'package:uber/pages/add_amount_page.dart';
 
 class PaymentMethodPage extends StatelessWidget {
   const PaymentMethodPage({super.key});
@@ -9,9 +10,7 @@ class PaymentMethodPage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: white,
-      appBar: AppBar(
-        backgroundColor: white,
-      ),
+      appBar: AppBar(backgroundColor: white),
       body: Padding(
         padding: EdgeInsets.symmetric(horizontal: 26.rw),
         child: Column(
@@ -30,7 +29,16 @@ class PaymentMethodPage extends StatelessWidget {
                 height: 50.rh,
               ),
               title: Text("Credit or Debit Card"),
-              onTap: () {},
+              onTap: () {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                    builder: (context) {
+                      return AddAmountPage();
+                    },
+                  ),
+                );
+              },
             ),
             ListTile(
               contentPadding: EdgeInsets.all(0),

@@ -2,6 +2,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:uber/colors/colors.dart';
 import 'package:uber/elements/buttons/black_button.dart';
+import 'package:uber/elements/services/sp_service.dart';
 import 'package:uber/elements/widgets/car_info.dart';
 import 'package:uber/elements/widgets/size_extensions.dart';
 import 'package:uber/pages/ride_page.dart';
@@ -13,7 +14,7 @@ class PaymentPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final int uberFee = 10;
-    final int driverFee = int.tryParse(drivers['salary'] )??0;
+    final int driverFee = int.tryParse(drivers['salary']) ?? 0;
     final int total = uberFee + driverFee;
     return Scaffold(
       backgroundColor: white,
@@ -29,14 +30,20 @@ class PaymentPage extends StatelessWidget {
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
                   Text('Driver Fee'),
-                  Text("EGP ${driverFee.toString()}", style: TextStyle(color: green)),
+                  Text(
+                    "EGP ${driverFee.toString()}",
+                    style: TextStyle(color: green),
+                  ),
                 ],
               ),
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
                   Text('Uber Fee'),
-                  Text('EGP ${uberFee.toString()}', style: TextStyle(color: green)),
+                  Text(
+                    'EGP ${uberFee.toString()}',
+                    style: TextStyle(color: green),
+                  ),
                 ],
               ),
               Divider(),
@@ -65,15 +72,27 @@ class PaymentPage extends StatelessWidget {
               ),
               SizedBox(height: 150.rh),
               BlackButton(
-                onPressed: () {
-                  Navigator.pushReplacement(
-                    context,
-                    MaterialPageRoute(
-                      builder: (context) {
-                        return RidePage();
-                      },
-                    ),
-                  );
+                onPressed: () async {
+                  int balance = SpService.i.prefs?.getInt("balance") ?? 0;
+                  if (balance >= total) {
+                    balance -= total;
+                    await SpService.i.prefs?.setInt("balance", balance);
+                    Navigator.pushReplacement(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) {
+                          return RidePage();
+                        },
+                      ),
+                    );
+                  } else {
+                    ScaffoldMessenger.of(context).showSnackBar(
+                      SnackBar(
+                        content: Text("Not enough balance!"),
+                        backgroundColor: Colors.red,
+                      ),
+                    );
+                  }
                 },
                 label: 'pay',
               ),

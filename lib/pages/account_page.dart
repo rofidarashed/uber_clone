@@ -64,14 +64,6 @@ class AccountPage extends StatelessWidget {
                     child: Divider(thickness: 1.3),
                   ),
                   InkWell(
-                    child: Text(
-                      "Setting",
-                      style: TextStyle(color: black, fontSize: 16),
-                    ),
-                  ),
-                  SizedBox(height: 18.rh),
-
-                  InkWell(
                     onTap: () async {
                       await FirebaseAuth.instance.signOut();
                       await GoogleSignIn().signOut();

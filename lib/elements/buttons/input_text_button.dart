@@ -1,5 +1,6 @@
 // ignore_for_file: public_member_api_docs, sort_constructors_first
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 
 import 'package:uber/colors/colors.dart';
 import 'package:uber/elements/widgets/size_extensions.dart';
@@ -10,6 +11,9 @@ class InputTextButton extends StatelessWidget {
   final TextEditingController? controller;
   final String? Function(String?)? validator;
   final bool obscureText;
+  final TextInputType? textInputType;
+  final List<TextInputFormatter>? textInputFormatter;
+  final Widget? prefixIcon;
   const InputTextButton({
     super.key,
     required this.labelText,
@@ -17,6 +21,8 @@ class InputTextButton extends StatelessWidget {
     this.controller,
     this.validator,
     required this.obscureText,
+    this.textInputType,
+    this.textInputFormatter, this.prefixIcon,
   });
 
   @override
@@ -27,8 +33,10 @@ class InputTextButton extends StatelessWidget {
         controller: controller,
         validator: validator,
         obscureText: obscureText,
-
+        keyboardType: textInputType,
+        inputFormatters: textInputFormatter,
         decoration: InputDecoration(
+          prefixIcon: prefixIcon ,
           filled: true,
           fillColor: gray0,
           label: Text(labelText),

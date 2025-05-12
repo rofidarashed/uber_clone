@@ -1,15 +1,17 @@
 import 'package:flutter/material.dart';
 import 'package:uber/colors/colors.dart';
+import 'package:uber/elements/services/sp_service.dart';
 
 class AccountHeader extends StatelessWidget {
-  const AccountHeader({super.key});
+  final int? balance = SpService.i.prefs!.getInt("balance") ?? 0;
+
+  AccountHeader({super.key});
 
   @override
   Widget build(BuildContext context) {
     return SafeArea(
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
-
         children: [
           Text(
             "Account",
@@ -20,7 +22,10 @@ class AccountHeader extends StatelessWidget {
             mainAxisAlignment: MainAxisAlignment.center,
             mainAxisSize: MainAxisSize.min,
             children: [
-              Text("200", style: TextStyle(color: green, fontSize: 24)),
+              Text(
+                balance.toString(),
+                style: TextStyle(color: green, fontSize: 24),
+              ),
               Transform.translate(
                 offset: Offset(0, -4),
                 child: Text(

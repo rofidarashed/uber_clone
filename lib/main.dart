@@ -12,6 +12,9 @@ void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp(options: DefaultFirebaseOptions.currentPlatform);
   await SpService.i.init();
+  if (!SpService.i.prefs!.containsKey("balance")) {
+    await SpService.i.prefs!.setInt("balance", 0);
+  }
   runApp(const MyApp());
 }
 
