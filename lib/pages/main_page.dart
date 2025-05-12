@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:uber/colors/colors.dart';
-import 'package:uber/elements/account_navigator.dart';
 import 'package:uber/elements/ride_navigator.dart';
+import 'package:uber/pages/account_page.dart';
 import 'package:uber/pages/home_page.dart';
 
 class MainPage extends StatefulWidget {
@@ -20,7 +20,7 @@ class _MainPageState extends State<MainPage> {
   final List<Widget> _screens = [
     HomePage(),
     RideNavigator(),
-    AccountNavigator(),
+    AccountPage(),
   ];
 
   @override
