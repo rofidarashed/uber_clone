@@ -40,16 +40,16 @@ class PaymentMethodPage extends StatelessWidget {
                 );
               },
             ),
-            ListTile(
-              contentPadding: EdgeInsets.all(0),
-              leading: Image.asset(
-                "assets/cash.png",
-                width: 50.rw,
-                height: 50.rh,
-              ),
-              title: Text("Cash"),
-              onTap: () {},
-            ),
+            // ListTile(
+            //   contentPadding: EdgeInsets.all(0),
+            //   leading: Image.asset(
+            //     "assets/cash.png",
+            //     width: 50.rw,
+            //     height: 50.rh,
+            //   ),
+            //   title: Text("Cash"),
+            //   onTap: () {},
+            // ),
           ],
         ),
       ),

@@ -27,6 +27,9 @@ class _RidePageState extends State<RidePage> {
         if (snapshot.connectionState == ConnectionState.waiting) {
           return Center(child: CircularProgressIndicator(color: black));
         }
+        if (!snapshot.hasData || snapshot.data == null) {
+          return Center(child: Text('No data found'));
+        }
         final drivers = snapshot.data!.docs;
         return Scaffold(
           backgroundColor: white,

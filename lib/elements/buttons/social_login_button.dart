@@ -5,14 +5,18 @@ import 'package:uber/elements/widgets/size_extensions.dart';
 class SocialLoginButton extends StatelessWidget {
   final String image;
   final VoidCallback onPress;
-  const SocialLoginButton({super.key, required this.image,required this.onPress});
+  const SocialLoginButton({
+    super.key,
+    required this.image,
+    required this.onPress,
+  });
 
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
-      onTap: onPress ,
+      onTap: onPress,
       child: Container(
-        width: 145.rw,
+        width: 301.rw,
         height: 55.rh,
         decoration: BoxDecoration(
           border: Border.all(color: gray, width: 1.2),

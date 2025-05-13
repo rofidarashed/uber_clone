@@ -1,4 +1,3 @@
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 import 'package:uber/colors/colors.dart';
@@ -65,8 +64,12 @@ class AccountPage extends StatelessWidget {
                   ),
                   InkWell(
                     onTap: () async {
-                      await FirebaseAuth.instance.signOut();
-                      await GoogleSignIn().signOut();
+                      final googleSignIn = GoogleSignIn();
+
+                      if (await googleSignIn.isSignedIn()) {
+                        await googleSignIn.signOut();
+                      }
+                      await Future.delayed(const Duration(milliseconds: 500));
                       Navigator.of(context).pushAndRemoveUntil(
                         MaterialPageRoute(
                           builder: (context) {

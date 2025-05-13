@@ -1,3 +1,4 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:email_validator/email_validator.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
@@ -7,9 +8,14 @@ import 'package:uber/pages/login_page.dart';
 import 'package:uber/pages/main_page.dart';
 import 'package:uber/elements/buttons/input_text_button.dart';
 
-class CreateAnAccountPage extends StatelessWidget {
-  CreateAnAccountPage({super.key});
+class CreateAnAccountPage extends StatefulWidget {
+  const CreateAnAccountPage({super.key});
 
+  @override
+  State<CreateAnAccountPage> createState() => _CreateAnAccountPageState();
+}
+
+class _CreateAnAccountPageState extends State<CreateAnAccountPage> {
   final _formKey = GlobalKey<FormState>();
   final TextEditingController _emailController = TextEditingController();
   final TextEditingController _passwordController = TextEditingController();
@@ -46,12 +52,22 @@ class CreateAnAccountPage extends StatelessWidget {
                       onPressed: () async {
                         if (_formKey.currentState?.validate() ?? false) {
                           try {
-                            // final credential =
                             await FirebaseAuth.instance
                                 .createUserWithEmailAndPassword(
                                   email: _emailController.text,
                                   password: _passwordController.text,
                                 );
+                            final uid = FirebaseAuth.instance.currentUser!.uid;
+
+                            await FirebaseFirestore.instance
+                                .collection('users')
+                                .doc(uid)
+                                .set({
+                                  'email': _emailController.text,
+                                  'balance': 0,
+                                  'createdAt': FieldValue.serverTimestamp(),
+                                });
+
                             FirebaseAuth.instance.currentUser!
                                 .sendEmailVerification();
                             FirebaseAuth.instance.currentUser!.emailVerified

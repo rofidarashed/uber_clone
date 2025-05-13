@@ -6,7 +6,7 @@ import 'package:uber/elements/buttons/input_text_button.dart';
 import 'package:uber/elements/card_number_input_formatter.dart';
 import 'package:uber/elements/expiry_date_input_formatter.dart';
 import 'package:uber/elements/widgets/size_extensions.dart';
-import 'package:uber/pages/account_page.dart';
+import 'package:uber/pages/main_page.dart';
 
 class CardDetailsPage extends StatefulWidget {
   const CardDetailsPage({super.key});
@@ -131,7 +131,7 @@ class _CardDetailsPageState extends State<CardDetailsPage> {
                               textInputType: TextInputType.number,
                               textInputFormatter: [
                                 FilteringTextInputFormatter.digitsOnly,
-                                LengthLimitingTextInputFormatter(4),
+                                LengthLimitingTextInputFormatter(3),
                               ],
                               validator: (value) {
                                 if (value == null || value.isEmpty) {
@@ -158,13 +158,11 @@ class _CardDetailsPageState extends State<CardDetailsPage> {
                 child: BlackButton(
                   onPressed: () {
                     if (_formKey.currentState?.validate() ?? false) {
-                      Navigator.pushReplacement(
-                        context,
+                      Navigator.of(context).pushAndRemoveUntil(
                         MaterialPageRoute(
-                          builder: (context) {
-                            return AccountPage();
-                          },
+                          builder: (context) => const MainPage(),
                         ),
+                        (Route<dynamic> route) => false,
                       );
                     }
                   },

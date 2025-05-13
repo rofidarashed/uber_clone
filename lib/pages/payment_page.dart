@@ -2,7 +2,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:uber/colors/colors.dart';
 import 'package:uber/elements/buttons/black_button.dart';
-import 'package:uber/elements/services/sp_service.dart';
+import 'package:uber/elements/services/user_service.dart';
 import 'package:uber/elements/widgets/car_info.dart';
 import 'package:uber/elements/widgets/size_extensions.dart';
 import 'package:uber/pages/ride_page.dart';
@@ -73,10 +73,10 @@ class PaymentPage extends StatelessWidget {
               SizedBox(height: 150.rh),
               BlackButton(
                 onPressed: () async {
-                  int balance = SpService.i.prefs?.getInt("balance") ?? 0;
+                  int balance = await UserService.getUserBalance();
                   if (balance >= total) {
                     balance -= total;
-                    await SpService.i.prefs?.setInt("balance", balance);
+                    await UserService.updateUserBalance(balance); 
                     Navigator.pushReplacement(
                       context,
                       MaterialPageRoute(

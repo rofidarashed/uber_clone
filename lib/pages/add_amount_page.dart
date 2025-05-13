@@ -1,9 +1,10 @@
+import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:uber/colors/colors.dart';
 import 'package:uber/elements/buttons/black_button.dart';
 import 'package:uber/elements/buttons/input_text_button.dart';
-import 'package:uber/elements/services/sp_service.dart';
+import 'package:uber/elements/services/user_service.dart';
 import 'package:uber/elements/widgets/size_extensions.dart';
 import 'package:uber/pages/card_details_page.dart';
 
@@ -15,9 +16,36 @@ class AddAmountPage extends StatefulWidget {
 }
 
 class _AddAmountPageState extends State<AddAmountPage> {
-  int balance = SpService.i.prefs!.getInt("balance") ?? 0;
+  int balance = 0;
+  StreamSubscription? _balanceSubscription;
   final _formKey = GlobalKey<FormState>();
   final TextEditingController _amount = TextEditingController();
+  void initState() {
+    super.initState();
+    _setupBalanceListener();
+  }
+
+  void _setupBalanceListener() {
+    _balanceSubscription = UserService.listenToUserBalance().listen(
+      (snapshot) {
+        if (!mounted) return;
+
+        setState(() {
+          balance = snapshot.data()?["balance"] ?? 0;
+        });
+      },
+      onError: (error) {
+        if (!mounted) return;
+      },
+    );
+  }
+
+  @override
+  void dispose() {
+    _balanceSubscription?.cancel(); // Cancel the subscription
+    _amount.dispose(); // Dispose the controller
+    super.dispose();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -81,16 +109,15 @@ class _AddAmountPageState extends State<AddAmountPage> {
                   vertical: 18.rh,
                 ),
                 child: BlackButton(
-                  onPressed: () {
+                  onPressed: () async {
                     if (_formKey.currentState?.validate() ?? false) {
                       final int amount = int.tryParse(_amount.text) ?? 0;
                       final int newBalance = balance + amount;
                       setState(() {
                         balance = newBalance;
                       });
-
-                      SpService.i.prefs?.setInt('balance', newBalance);
-                      Navigator.push(
+                      UserService.updateUserBalance(newBalance);
+                      Navigator.pushReplacement(
                         context,
                         MaterialPageRoute(
                           builder: (context) {
