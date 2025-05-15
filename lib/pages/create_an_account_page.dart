@@ -18,6 +18,7 @@ class CreateAnAccountPage extends StatefulWidget {
 class _CreateAnAccountPageState extends State<CreateAnAccountPage> {
   final _formKey = GlobalKey<FormState>();
   final TextEditingController _emailController = TextEditingController();
+  final TextEditingController _nameController = TextEditingController();
   final TextEditingController _passwordController = TextEditingController();
   final TextEditingController _confirmPasswordController =
       TextEditingController();
@@ -52,24 +53,26 @@ class _CreateAnAccountPageState extends State<CreateAnAccountPage> {
                       onPressed: () async {
                         if (_formKey.currentState?.validate() ?? false) {
                           try {
-                            await FirebaseAuth.instance
+                            var userCredential = await FirebaseAuth.instance
                                 .createUserWithEmailAndPassword(
                                   email: _emailController.text,
                                   password: _passwordController.text,
                                 );
-                            final uid = FirebaseAuth.instance.currentUser!.uid;
+
+                            await userCredential.user!.updateDisplayName(
+                              _nameController.text,
+                            );
 
                             await FirebaseFirestore.instance
                                 .collection('users')
-                                .doc(uid)
+                                .doc(userCredential.user!.uid)
                                 .set({
                                   'email': _emailController.text,
                                   'balance': 0,
                                   'createdAt': FieldValue.serverTimestamp(),
                                 });
 
-                            FirebaseAuth.instance.currentUser!
-                                .sendEmailVerification();
+                            await userCredential.user!.sendEmailVerification();
                             FirebaseAuth.instance.currentUser!.emailVerified
                                 ? Navigator.pushReplacement(
                                   context,
@@ -160,6 +163,18 @@ class _CreateAnAccountPageState extends State<CreateAnAccountPage> {
                       return 'Please enter your email';
                     } else if (!EmailValidator.validate(email)) {
                       return "Please enter a valid email";
+                    }
+                    return null;
+                  },
+                  obscureText: false,
+                ),
+                InputTextButton(
+                  labelText: 'UserName',
+                  hintText: 'user name',
+                  controller: _nameController,
+                  validator: (String? name) {
+                    if (name!.isEmpty == true) {
+                      return 'Please enter your name';
                     }
                     return null;
                   },

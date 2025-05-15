@@ -1,7 +1,6 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:uber/colors/colors.dart';
-import 'package:uber/elements/services/sp_service.dart';
 import 'package:uber/elements/widgets/edit_profile_info.dart';
 import 'package:uber/elements/widgets/size_extensions.dart';
 
@@ -13,6 +12,7 @@ class ProfilePage extends StatefulWidget {
 }
 
 class _ProfilePageState extends State<ProfilePage> {
+  final user = FirebaseAuth.instance.currentUser;
   String currentName = "User";
   bool edit = false;
 
@@ -20,7 +20,7 @@ class _ProfilePageState extends State<ProfilePage> {
   void initState() {
     super.initState();
     setState(() {
-      currentName = SpService.i.prefs?.getString("displayName") ?? "User";
+      currentName = user!.displayName.toString();
     });
   }
 
@@ -36,7 +36,7 @@ class _ProfilePageState extends State<ProfilePage> {
     return Scaffold(
       backgroundColor: white,
       body: Padding(
-        padding: EdgeInsets.symmetric(horizontal: 21.rw, vertical: 55.rh),
+        padding: EdgeInsets.only(right: 21.rw, left: 21.rw, top: 55.rh),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [
@@ -56,7 +56,7 @@ class _ProfilePageState extends State<ProfilePage> {
               ],
             ),
             SizedBox(height: 25.rh),
-            user != null
+            user != null && user.photoURL != null
                 ? CircleAvatar(
                   backgroundImage: NetworkImage(user.photoURL.toString()),
                   radius: 40,
@@ -67,8 +67,14 @@ class _ProfilePageState extends State<ProfilePage> {
                   height: 80.rh,
                 ),
             SizedBox(height: 18.rh),
-            Text(currentName, style: TextStyle(fontSize: 30)),
-            Text(user!.email.toString(), style: TextStyle(fontSize: 17)),
+            Text(
+              user?.displayName ?? "Unknown user",
+              style: TextStyle(fontSize: 30),
+            ),
+            Text(
+              user?.email ?? "Unknown E-mail",
+              style: TextStyle(fontSize: 17),
+            ),
             EditProfileInfo(updateName: updateName, currentName: currentName),
           ],
         ),

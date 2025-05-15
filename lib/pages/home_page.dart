@@ -76,7 +76,7 @@ class _HomePageState extends State<HomePage> {
                       }
                     },
                     icon:
-                        user != null
+                        user != null && user.photoURL != null
                             ? CircleAvatar(
                               backgroundImage: NetworkImage(
                                 user.photoURL.toString(),
