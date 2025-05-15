@@ -1,4 +1,3 @@
-import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:uber/colors/colors.dart';
 import 'package:uber/elements/services/user_service.dart';
@@ -12,27 +11,26 @@ class AccountHeader extends StatefulWidget {
 
 class _AccountHeaderState extends State<AccountHeader> {
   int balance = 0;
-  StreamSubscription? _balanceSubscription;
-
-  @override
-  void initState() {
-    super.initState();
-    _setupBalanceListener();
-  }
-
   void _setupBalanceListener() {
-    _balanceSubscription = UserService.listenToUserBalance().listen(
+    UserService.listenToUserBalance().listen(
       (snapshot) {
         if (!mounted) return;
-
-        setState(() {
-          balance = snapshot.data()?["balance"] ?? 0;
-        });
+        if (snapshot.exists) {
+          setState(() {
+            balance = snapshot.data()?["balance"] ?? 0;
+          });
+        }
       },
       onError: (error) {
         if (!mounted) return;
       },
     );
+  }
+
+  @override
+  void initState() {
+    super.initState();
+    _setupBalanceListener();
   }
 
   @override

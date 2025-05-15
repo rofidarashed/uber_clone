@@ -11,7 +11,7 @@ class UserService {
     return userDoc.data()?['balance'] ?? 0;
   }
 
-  static Stream listenToUserBalance() {
+  static Stream<DocumentSnapshot<Map<String, dynamic>>> listenToUserBalance() {
     return FirebaseFirestore.instance
         .collection("users")
         .doc(FirebaseAuth.instance.currentUser?.uid)
@@ -21,9 +21,16 @@ class UserService {
   static Future<void> updateUserBalance(int updatedBalance) async {
     final uid = FirebaseAuth.instance.currentUser?.uid;
 
-    await FirebaseFirestore.instance.collection('users').doc(uid).update({
-      "balance": updatedBalance,
-    });
+    if ((await FirebaseFirestore.instance.collection("users").doc(uid).get())
+        .exists) {
+      await FirebaseFirestore.instance.collection('users').doc(uid).update({
+        "balance": updatedBalance,
+      });
+    } else {
+      await FirebaseFirestore.instance.collection('users').doc(uid).set({
+        "balance": updatedBalance,
+      });
+    }
   }
 
   static Future<void> createUserIfNotExists({required String email}) async {

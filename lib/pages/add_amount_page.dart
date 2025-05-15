@@ -30,9 +30,12 @@ class _AddAmountPageState extends State<AddAmountPage> {
       (snapshot) {
         if (!mounted) return;
 
+        if(snapshot.exists) {
+            
         setState(() {
           balance = snapshot.data()?["balance"] ?? 0;
         });
+        }
       },
       onError: (error) {
         if (!mounted) return;
@@ -42,8 +45,8 @@ class _AddAmountPageState extends State<AddAmountPage> {
 
   @override
   void dispose() {
-    _balanceSubscription?.cancel(); // Cancel the subscription
-    _amount.dispose(); // Dispose the controller
+    _balanceSubscription?.cancel();
+    _amount.dispose();
     super.dispose();
   }
 
