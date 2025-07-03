@@ -4,10 +4,11 @@ import 'package:uber/core/utils/colors/colors.dart';
 import 'package:uber/core/widgets/black_button.dart';
 import 'package:uber/core/widgets/card_details_widget.dart';
 import 'package:uber/core/elements/size_extensions.dart';
+import 'package:uber/feature/home/view/screens/navigator_page.dart';
 
 class CardDetailsPage extends StatefulWidget {
   final int amount;
-  const CardDetailsPage({super.key, required this.amount, });
+  const CardDetailsPage({super.key, required this.amount});
 
   @override
   State<CardDetailsPage> createState() => _CardDetailsPageState();
@@ -49,13 +50,17 @@ class _CardDetailsPageState extends State<CardDetailsPage> {
                     if (_formKey.currentState?.validate() ?? false) {
                       int currentBalance = await UserService.getUserBalance();
                       int newBalance = currentBalance;
-                    
-                          newBalance = currentBalance + widget.amount;
-                          
+
+                      newBalance = currentBalance + widget.amount;
 
                       await UserService.updateUserBalance(newBalance);
 
-                      Navigator.of(context).popUntil((route) => route.isFirst);
+                      Navigator.of(context).pushAndRemoveUntil(
+                        MaterialPageRoute(
+                          builder: (context) => MainPage(),
+                        ),
+                        (route) => false,
+                      );
                     }
                   },
                   label: 'Continue',

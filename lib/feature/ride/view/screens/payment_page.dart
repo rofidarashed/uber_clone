@@ -4,7 +4,6 @@ import 'package:uber/core/utils/colors/colors.dart';
 import 'package:uber/core/widgets/black_button.dart';
 import 'package:uber/core/services/user_service.dart';
 import 'package:uber/feature/ride/view/screens/confirm_book_page.dart';
-// import 'package:uber/feature/ride/view/screens/payment_method_page.dart';
 import 'package:uber/feature/ride/view/widgets/car_info.dart';
 import 'package:uber/core/elements/size_extensions.dart';
 
@@ -18,10 +17,11 @@ class PaymentPage extends StatelessWidget {
     final int driverFee = int.tryParse(drivers['salary']) ?? 0;
     final int total = uberFee + driverFee;
     return Scaffold(
+      appBar: AppBar(backgroundColor: white),
       backgroundColor: white,
       body: SafeArea(
         child: Padding(
-          padding: EdgeInsets.symmetric(horizontal: 30.rw, vertical: 28.rh),
+          padding: EdgeInsets.symmetric(horizontal: 30.rw, vertical: 20.rh),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
@@ -71,7 +71,7 @@ class PaymentPage extends StatelessWidget {
                   ),
                 ],
               ),
-              SizedBox(height: 150.rh),
+              SizedBox(height: 100.rh),
               BlackButton(
                 onPressed: () async {
                   int balance = await UserService.getUserBalance();
