@@ -5,7 +5,7 @@ import 'package:uber/core/elements/globals.dart';
 import 'package:uber/core/utils/colors/colors.dart';
 import 'package:uber/feature/ride/cubit/location_cubit.dart';
 import 'package:uber/feature/Intro/view/intro_page.dart';
-import 'package:uber/feature/home/view/screens/main_page.dart';
+import 'package:uber/feature/home/view/screens/navigator_page.dart';
 
 class MyApp extends StatefulWidget {
   const MyApp({super.key});

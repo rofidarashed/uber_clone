@@ -1,3 +1,4 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:uber/core/utils/colors/colors.dart';
@@ -13,31 +14,6 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
-  final List<String> salary = [
-    '90',
-    '95',
-    '100',
-    '110',
-    '125',
-    '150',
-    '160',
-    '175',
-    '190',
-    '200',
-  ];
-  final List<String> date = [
-    '29, March',
-    '25, March',
-    '23, March',
-    '21, March',
-    '20, March',
-    '20, March',
-    '16, March',
-    '15, March',
-    '13, March',
-    '10, March',
-  ];
-
   @override
   Widget build(BuildContext context) {
     final user = FirebaseAuth.instance.currentUser;
@@ -71,8 +47,7 @@ class _HomePageState extends State<HomePage> {
                         ),
                       );
                       if (context.mounted) {
-                      setState(() {});
-                        
+                        setState(() {});
                       }
                     },
                     icon:
@@ -98,11 +73,28 @@ class _HomePageState extends State<HomePage> {
               style: TextStyle(fontSize: 20, fontWeight: FontWeight.w500),
             ),
             Expanded(
-              child: ListView.builder(
-                padding: EdgeInsets.all(0),
-                itemCount: 10,
-                itemBuilder: (BuildContext context, int index) {
-                  return RecentRides(salary: salary[index], date: date[index]);
+              child: StreamBuilder(
+                stream:
+                    FirebaseFirestore.instance.collection("rides").snapshots(),
+                builder: (context, snapshot) {
+                  if (snapshot.connectionState == ConnectionState.waiting) {
+                    return Center(
+                      child: CircularProgressIndicator(color: black),
+                    );
+                  }
+                  print(snapshot);
+                  if (!snapshot.hasData || snapshot.data == null) {
+                    return Center(child: Text('No data found'));
+                  }
+                  final rides = snapshot.data!.docs;
+                  return ListView.builder(
+                    padding: EdgeInsets.all(0),
+                    itemCount: rides.length,
+                    itemBuilder: (BuildContext context, int index) {
+                      print(rides[index]);
+                      return RecentRides(rides: rides[index]);
+                    },
+                  );
                 },
               ),
             ),

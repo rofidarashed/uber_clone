@@ -2,7 +2,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:uber/core/utils/colors/colors.dart';
 import 'package:uber/core/widgets/black_button.dart';
-import 'package:uber/feature/home/view/screens/main_page.dart';
+import 'package:uber/feature/home/view/screens/navigator_page.dart';
 
 class LoginButton extends StatelessWidget {
   const LoginButton({

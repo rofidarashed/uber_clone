@@ -4,7 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:uber/core/utils/colors/colors.dart';
 import 'package:uber/core/widgets/black_button.dart';
 import 'package:uber/feature/login/view/login_page.dart';
-import 'package:uber/feature/home/view/screens/main_page.dart';
+import 'package:uber/feature/home/view/screens/navigator_page.dart';
 
 class RegisterButton extends StatelessWidget {
   const RegisterButton({

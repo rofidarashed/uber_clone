@@ -8,7 +8,7 @@ import 'package:uber/feature/Intro/view/widgets/or_divider_widget.dart';
 import 'package:uber/feature/Intro/view/widgets/intro_create_account_button.dart';
 import 'package:uber/feature/Intro/view/widgets/social_login_button.dart';
 import 'package:uber/feature/login/view/login_page.dart';
-import 'package:uber/feature/home/view/screens/main_page.dart';
+import 'package:uber/feature/home/view/screens/navigator_page.dart';
 
 class IntroPage extends StatelessWidget {
   const IntroPage({super.key});
