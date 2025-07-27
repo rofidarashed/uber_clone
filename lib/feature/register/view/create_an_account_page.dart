@@ -45,7 +45,12 @@ class _CreateAnAccountPageState extends State<CreateAnAccountPage> {
                     textAlign: TextAlign.center,
                     'By creating an account, you agree\nto our Terms of Service and Privacy Policy.',
                   ),
-                  RegisterButton(formKey: _formKey, emailController: _emailController, passwordController: _passwordController, nameController: _nameController),
+                  RegisterButton(
+                    formKey: _formKey,
+                    emailController: _emailController,
+                    passwordController: _passwordController,
+                    nameController: _nameController,
+                  ),
                 ],
               ),
             ),
@@ -55,4 +60,3 @@ class _CreateAnAccountPageState extends State<CreateAnAccountPage> {
     );
   }
 }
-

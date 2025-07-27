@@ -63,7 +63,6 @@ class DefaultFirebaseOptions {
     messagingSenderId: '981196572245',
     projectId: 'uber-clone-ad739',
     storageBucket: 'uber-clone-ad739.firebasestorage.app',
-    iosBundleId: 'com.example.uber',
+    iosBundleId: 'com.rofida.uber',
   );
-
 }

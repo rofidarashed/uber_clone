@@ -28,7 +28,7 @@ class _RidePageState extends State<RidePage> {
         if (!snapshot.hasData || snapshot.data == null) {
           return Center(child: Text('No data found'));
         }
-        final drivers = snapshot.data!.docs;
+        final drivers = snapshot.data!.docs..shuffle();
         return Scaffold(
           backgroundColor: white,
           body: SafeArea(
@@ -75,12 +75,9 @@ class _RidePageState extends State<RidePage> {
                           ],
                         ),
                       )
-                      : WhereToWigdet(
-                        onConfirmTap: () {
-                          setState(() {
-                            isComfirmed = true;
-                          });
-                        },
+                      : WhereToWidget(
+                        onConfirmTap: () => setState(() => isComfirmed = true),
+                        isDisabled: isComfirmed,
                       ),
                 ],
               ),

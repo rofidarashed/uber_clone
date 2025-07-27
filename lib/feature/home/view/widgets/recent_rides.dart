@@ -10,8 +10,6 @@ class RecentRides extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     Map<String, dynamic> data = rides.data() as Map<String, dynamic>;
-    print("+++++++++++$data");
-
     return Container(
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(5),

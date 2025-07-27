@@ -22,7 +22,7 @@ class LoginButton extends StatelessWidget {
   Widget build(BuildContext context) {
     return Padding(
       padding: EdgeInsets.symmetric(
-        vertical: 8.0,
+        vertical: 26.0,
         horizontal: MediaQuery.of(context).size.width / 8,
       ),
       child: BlackButton(
@@ -47,7 +47,8 @@ class LoginButton extends StatelessWidget {
                 ScaffoldMessenger.of(context).showSnackBar(
                   SnackBar(
                     duration: Durations.medium4,
-                    content: Text('Please verify your email first')),
+                    content: Text('Please verify your email first'),
+                  ),
                 );
                 FirebaseAuth.instance.currentUser!.sendEmailVerification();
               }
@@ -57,7 +58,8 @@ class LoginButton extends StatelessWidget {
                   SnackBar(
                     backgroundColor: red,
                     duration: Durations.medium4,
-                    content: Text("Wrong password or email.")),
+                    content: Text("Wrong password or email."),
+                  ),
                 );
                 return;
               }

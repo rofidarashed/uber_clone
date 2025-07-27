@@ -1,204 +1,87 @@
-import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_map/flutter_map.dart';
-import 'package:latlong2/latlong.dart';
-import 'package:uber/core/utils/colors/colors.dart';
+import 'package:uber/feature/ride/cubit/location_cubit.dart';
+import 'package:uber/feature/ride/cubit/location_state.dart';
+import 'package:uber/feature/ride/view/widgets/custome_floating_buttons.dart';
+import 'package:uber/feature/ride/view/widgets/custome_map.dart';
+import 'package:uber/feature/ride/view/widgets/customed_location_buttons.dart';
 
-class WhereToWigdet extends StatefulWidget {
+class WhereToWidget extends StatefulWidget {
   final VoidCallback onConfirmTap;
-  const WhereToWigdet({super.key, required this.onConfirmTap});
+  final bool isDisabled;
+  const WhereToWidget({
+    super.key,
+    required this.onConfirmTap,
+    required this.isDisabled,
+  });
 
   @override
-  State<WhereToWigdet> createState() => _WhereToWigdetState();
+  State<WhereToWidget> createState() => _WhereToWidgetState();
 }
 
-class _WhereToWigdetState extends State<WhereToWigdet> {
-  final DocumentSnapshot? drivers = null;
+class _WhereToWidgetState extends State<WhereToWidget> {
+  final MapController mapController = MapController();
+  @override
+  void dispose() {
+    mapController.dispose();
+    super.dispose();
+  }
 
-  LatLng? fromLocation;
-  LatLng? toLocation;
-  bool selectingFrom = true;
-  final mapController = MapController();
   @override
   Widget build(BuildContext context) {
-    return Expanded(
-      child: Column(
-        children: [
-          Expanded(
-            child: FlutterMap(
-              mapController: mapController,
-              options: MapOptions(
-                initialCenter: LatLng(30.0444, 31.2357),
-                initialZoom: 13,
-                onTap: (tapPosition, point) {
-                  setState(() {
-                    if (selectingFrom) {
-                      fromLocation = point;
-                    } else {
-                      toLocation = point;
-                    }
-                  });
-                },
-              ),
-              children: [
-                TileLayer(
-                  urlTemplate: "https://tile.openstreetmap.org/{z}/{x}/{y}.png",
-                ),
-                MarkerLayer(
-                  markers: [
-                    if (fromLocation != null)
-                      Marker(
-                        point: fromLocation!,
-                        child: Icon(
-                          Icons.location_on,
-                          color: Colors.green,
-                          size: 40,
-                        ),
-                      ),
-                    if (toLocation != null)
-                      Marker(
-                        point: toLocation!,
-                        child: Icon(
-                          Icons.location_on,
-                          color: red,
-                          size: 40,
-                        ),
-                      ),
-                  ],
-                ),
-              ],
+    print('object');
+    print(widget.isDisabled);
+    print('object');
+    return BlocConsumer<LocationCubit, LocationState>(
+      listener: (context, state) {
+        if (state.showInvalidLocationError) {
+          ScaffoldMessenger.of(context).showSnackBar(
+            const SnackBar(
+              content: Text("Invalid location coordinates"),
+              duration: Duration(seconds: 2),
             ),
-          ),
-          Container(
-            color: Colors.white,
-            padding: const EdgeInsets.symmetric(vertical: 12, horizontal: 16),
-            child: Column(
-              children: [
-                Row(
-                  children: [
-                    const Icon(Icons.location_on_outlined),
-                    const SizedBox(width: 8),
-                    Expanded(
-                      child: Text(
-                        fromLocation != null
-                            ? 'From: ${fromLocation!.latitude.toStringAsFixed(4)}, ${fromLocation!.longitude.toStringAsFixed(4)}'
-                            : 'Tap on map to select starting point',
-                      ),
-                    ),
-                  ],
-                ),
-                const SizedBox(height: 8),
-                Row(
-                  children: [
-                    const Icon(Icons.location_on),
-                    const SizedBox(width: 8),
-                    Expanded(
-                      child: Text(
-                        toLocation != null
-                            ? 'To: ${toLocation!.latitude.toStringAsFixed(4)}, ${toLocation!.longitude.toStringAsFixed(4)}'
-                            : 'Tap again to select destination',
-                      ),
-                    ),
-                  ],
-                ),
-                const SizedBox(height: 12),
-                Row(
-                  children: [
-                    TextButton(
-                      onPressed: () {
-                        setState(() {
-                          selectingFrom = true;
-                        });
-                      },
-                      child: Text("Set From", style: TextStyle(color: black)),
-                    ),
-                    const SizedBox(width: 10),
-                    TextButton(
-                      onPressed: () {
-                        setState(() {
-                          selectingFrom = false;
-                        });
-                      },
-                      child: Text("Set To", style: TextStyle(color: black)),
-                    ),
-                    const Spacer(),
-                    ElevatedButton(
-                      onPressed:
-                          (fromLocation != null && toLocation != null)
-                              ? () {
-                                print(
-                                  "Confirmed: From $fromLocation To $toLocation",
-                                );
-                                ScaffoldMessenger.of(context).showSnackBar(
-                                  SnackBar(
-                                    duration: Durations.medium4,
-                                    content: Text(
-                                      "Confirmed: From $fromLocation To $toLocation",
-                                    ),
-                                  ),
-                                );
+          );
+          context.read<LocationCubit>().clearError();
+        }
+      },
+      builder: (context, state) {
+        final cubit = context.read<LocationCubit>();
+        final fromLocation = state.fromLocation;
+        final toLocation = state.toLocation;
+        final selectingFrom = state.selectingFrom;
+        final isLoadingLocation = state.isLoadingLocation;
 
-                                widget.onConfirmTap();
-                              }
-                              : null,
-                      style: ElevatedButton.styleFrom(
-                        backgroundColor: Colors.black,
-                      ),
-                      child: const Text(
-                        "Confirm",
-                        style: TextStyle(color: Colors.white),
-                      ),
-                    ),
-                  ],
-                ),
-              ],
+        return Stack(
+          alignment: Alignment.topRight,
+          children: [
+            CustomedFlutterMap(
+              mapController: mapController,
+              isDisabled: widget.isDisabled,
+              cubit: cubit,
+              selectingFrom: selectingFrom,
+              fromLocation: fromLocation,
+              toLocation: toLocation,
             ),
-          ),
-        ],
-      ),
+            Positioned(
+              top: 40,
+              right: 10,
+              child: MapFloatingIcons(
+                cubit: cubit,
+                mapController: mapController,
+                isLoadingLocation: isLoadingLocation,
+              ),
+            ),
+            CustomedLocationButtons(
+              fromLocation: fromLocation,
+              toLocation: toLocation,
+              cubit: cubit,
+              selectingFrom: selectingFrom,
+              onConfirmTap: widget.onConfirmTap,
+            ),
+          ],
+        );
+      },
     );
-    // SizedBox(
-    //   child: Column(
-    //     crossAxisAlignment: CrossAxisAlignment.start,
-    //     children: [
-    //       Text(
-    //         "\tWhere to?",
-    //         style: TextStyle(fontSize: 39, fontWeight: FontWeight.bold),
-    //       ),
-    //       SizedBox(
-    //         child: Row(
-    //           children: [
-    //             Icon(Icons.location_on_outlined, size: 39.rh),
-    //             Expanded(
-    //               child: InputTextButton(
-    //                 labelText: "From",
-    //                 hintText: "From",
-    //                 controller: from,
-    //                 obscureText: false,
-    //                 validator: (value) => value == null || value.isEmpty ? "Required" : null,
-    //               ),
-    //             ),
-    //           ],
-    //         ),
-    //       ),
-    //       SizedBox(
-    //         child: Row(
-    //           children: [
-    //             Icon(Icons.location_on_outlined, size: 39.rh),
-    //             Expanded(
-    //               child: InputTextButton(
-    //                 labelText: "To",
-    //                 hintText: "To",
-    //                 controller: to,
-    //                 obscureText: false,
-    //                 validator:(value) => value == null || value.isEmpty ? "Required" : null,
-    //               ),
-    //             ),
-    //           ],
-    //         ),
-    //       ),
-    //     ],
-    //   ),
-    // );
   }
 }
