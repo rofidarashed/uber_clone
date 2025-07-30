@@ -7,17 +7,17 @@
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:981196572245:android:4d45daa183dc3911e3f6dc",
+        "mobilesdk_app_id": "1:981196572245:android:e267081934679986e3f6dc",
         "android_client_info": {
-          "package_name": "com.example.uber"
+          "package_name": "com.rofida.uber"
         }
       },
       "oauth_client": [
         {
-          "client_id": "981196572245-4pj2o9mhe4q788506i7c0ht3rv0fi2a5.apps.googleusercontent.com",
+          "client_id": "981196572245-dpft55kq2tcr21v3jbn6ttj51f1df643.apps.googleusercontent.com",
           "client_type": 1,
           "android_info": {
-            "package_name": "com.example.uber",
+            "package_name": "com.rofida.uber",
             "certificate_hash": "debd911c7dac4ccf7645f458d00ed24aa8da8ace"
           }
         },

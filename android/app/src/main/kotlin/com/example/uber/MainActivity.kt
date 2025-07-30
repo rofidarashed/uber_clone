@@ -1,4 +1,4 @@
-package com.example.uber
+package com.rofida.uber
 
 import io.flutter.embedding.android.FlutterActivity
 

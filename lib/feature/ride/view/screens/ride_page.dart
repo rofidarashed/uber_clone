@@ -18,6 +18,12 @@ class _RidePageState extends State<RidePage> {
   final mapController = MapController();
 
   @override
+  void initState() {
+    super.initState();
+    setState(() {});
+  }
+
+  @override
   Widget build(BuildContext context) {
     return StreamBuilder(
       stream: FirebaseFirestore.instance.collection('Drivers').snapshots(),
@@ -28,7 +34,7 @@ class _RidePageState extends State<RidePage> {
         if (!snapshot.hasData || snapshot.data == null) {
           return Center(child: Text('No data found'));
         }
-        final drivers = snapshot.data!.docs..shuffle();
+        final drivers = snapshot.data!.docs;
         return Scaffold(
           backgroundColor: white,
           body: SafeArea(
@@ -76,8 +82,11 @@ class _RidePageState extends State<RidePage> {
                         ),
                       )
                       : WhereToWidget(
-                        onConfirmTap: () => setState(() => isComfirmed = true),
-                        isDisabled: isComfirmed,
+                        onConfirmTap: () {
+                          setState(() {
+                            isComfirmed = true;
+                          });
+                        },
                       ),
                 ],
               ),
